@@ -31,8 +31,6 @@ class FridayTweet(models.Model):
 
         high_today = FridayTweet.random_line()
 
-        # tweet_different = FridayTweet.objects.filter(tweet=high_today).exists()
-
         api.update_status(status=high_today)
         print high_today
         print "\n\tThis tweet was %d characters long.\n" % len(high_today)
