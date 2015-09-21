@@ -3,7 +3,7 @@ from django.db import models
 from random import choice
 from django.conf import settings
 import tweepy
-# from project.settings_local import auth settings
+from project.settings_local import auth_settings
 
 # Create your models here.
 
@@ -25,11 +25,13 @@ class FridayTweet(models.Model):
 
     @staticmethod
     def bye_felicia():
-        auth = tweepy.OAuthHandler()
-        auth.set_access_token()
+        auth = tweepy.OAuthHandler(auth_settings['consumer_key'], auth_settings['consumer_secret'])
+        auth.set_access_token(auth_settings['access_token_key'], auth_settings['access_token_secret'])
         api = tweepy.API(auth)
 
         high_today = FridayTweet.random_line()
+
+        # tweet_different = FridayTweet.objects.filter(tweet=high_today).exists()
 
         tweet = FridayTweet()
         tweet.tweet = high_today
@@ -38,4 +40,4 @@ class FridayTweet(models.Model):
 
         api.update_status(status=high_today)
         print high_today
-        print "\n\tThis tweet was %d character long\n" % len(high_today)
+        print "\n\tThis tweet was %d characters long\n" % len(high_today)
