@@ -18,7 +18,7 @@ class FridayTweet(models.Model):
 
     @staticmethod
     def random_line():
-        with open('main/friday.txt', 'r') as friday:
+        with open('/sites/projects/friday/main/friday.txt', 'r') as friday:
             line = choice(friday.readlines())
 
             return line
